@@ -36,7 +36,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Bottom Right Resume Button */}
+      {/* Bottom Right Resume Button 
       <div className="absolute bottom-10 right-10 md:right-20 z-10 pointer-events-auto">
         <a
           href="/resume.pdf"
@@ -46,6 +46,7 @@ const Hero = () => {
           RESUME <FaRegFileAlt size={18} />
         </a>
       </div>
+      */}
 
       {/* Mobile Text (Shows only on small screens) */}
       <div className="sm:hidden absolute top-32 left-0 w-full px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
