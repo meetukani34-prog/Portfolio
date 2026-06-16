@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { menu, close } from "../assets";
-import { FaFilePdf } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
@@ -56,21 +56,29 @@ const Navbar = () => {
         </div>
 
         {/* Right: Nav Links */}
-        <ul className='list-none hidden sm:flex flex-row gap-8 items-center'>
-          {navLinks.map((nav) => (
-            <li
-              key={nav.id}
-              className={`${
-                active === nav.title ? "text-white" : "text-secondary"
-              } hover:text-white text-[13px] font-semibold tracking-widest uppercase cursor-pointer transition-colors`}
-              onClick={() => setActive(nav.title)}
-            >
-              <a href={`#${nav.id}`}>{nav.title}</a>
-            </li>
-          ))}
-          <li className="ml-2 cursor-pointer text-white p-[6px] rounded-full border border-white hover:bg-white hover:text-primary transition-all">
-            <FaFilePdf size={16} />
-          </li>
+        <ul className='list-none hidden sm:flex flex-row gap-2 items-center p-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10'>
+          {navLinks.map((nav) => {
+            const isActive = active === nav.title;
+            return (
+              <li
+                key={nav.id}
+                className={`relative px-4 py-2 rounded-full cursor-pointer transition-colors duration-300 ${
+                  isActive ? "text-white" : "text-secondary hover:text-white"
+                } text-[13px] font-semibold tracking-widest uppercase`}
+                onClick={() => setActive(nav.title)}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="liquidBg"
+                    className="absolute inset-0 bg-[#915eff] rounded-full"
+                    style={{ zIndex: 0 }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <a href={`#${nav.id}`} className="relative z-10">{nav.title}</a>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Mobile Menu Toggle */}
