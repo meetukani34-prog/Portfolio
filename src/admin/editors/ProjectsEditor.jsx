@@ -257,7 +257,7 @@ const ProjectsEditor = () => {
                       placeholder="Add tag..."
                     />
                     <button onClick={addTag} className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm transition-colors">
-                      Add
+                      Add Tag
                     </button>
                   </div>
                 </div>
