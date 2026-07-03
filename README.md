@@ -29,6 +29,48 @@ Welcome to my personal portfolio repository! This project goes beyond a static w
 
 Every piece of content—from the introductory text to the project showcases and service cards—can be edited, added, or deleted directly from the `/admin` route without ever touching a single line of code.
 
+## 🏗️ System Architecture
+
+The platform operates on a decoupled architecture, ensuring blazing-fast 3D rendering on the frontend while relying on Firebase for real-time backend synchronization.
+
+```mermaid
+graph TD
+    %% Custom Styling
+    classDef user fill:#0F172A,stroke:#94A3B8,stroke-width:2px,color:#fff
+    classDef frontend fill:#1E293B,stroke:#38BDF8,stroke-width:2px,color:#fff
+    classDef backend fill:#1E293B,stroke:#F59E0B,stroke-width:2px,color:#fff
+    classDef database fill:#1E293B,stroke:#10B981,stroke-width:2px,color:#fff
+    
+    %% Actors
+    Visitor(("🧑‍💻 Website Visitor")):::user
+    Admin(("👑 Admin (You)")):::user
+    
+    %% Architecture
+    subgraph Frontend [Vite + React + Three.js]
+        UI["Live Portfolio (3D UI)"]:::frontend
+        CMS["Secure Admin Dashboard"]:::frontend
+    end
+    
+    subgraph Backend [Firebase Ecosystem]
+        Auth["Firebase Authentication"]:::backend
+        DB[("Firestore (Real-time DB)")]:::database
+    end
+    
+    subgraph Serverless [API Layer]
+        EmailAPI["Nodemailer API Route"]:::backend
+    end
+    
+    %% Relationships
+    Visitor -->|Views Site| UI
+    Visitor -->|Submits Contact Form| EmailAPI
+    EmailAPI -->|Sends Email| Admin
+    
+    Admin -->|Logs In| Auth
+    Auth -.->|Validates Token| CMS
+    CMS -->|Read/Write Content| DB
+    DB ==>|Real-time Data Stream| UI
+```
+
 ## 🔋 Key Features
 
 - 🌌 **Immersive 3D Experience:** Custom 3D avatars, interactive floating tech globes, and a dynamically generated starry background.
