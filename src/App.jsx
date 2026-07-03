@@ -88,6 +88,9 @@ const Portfolio = () => {
 
       {/* Global Fixed Social Sidebar */}
       <SocialSidebar />
+
+      {/* Preloader */}
+      <Preloader />
     </>
   );
 };
