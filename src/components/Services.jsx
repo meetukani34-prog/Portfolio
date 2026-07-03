@@ -2,7 +2,7 @@ import React from "react";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
-import { services } from "../constants";
+import { useServices } from "../hooks/useFirestoreData";
 import { SectionWrapper } from "../hoc";
 import { fadeIn } from "../utils/motion";
 
@@ -30,6 +30,8 @@ const ServiceCard = ({ index, title, icon }) => (
 );
 
 const Services = () => {
+  const { data: services } = useServices();
+
   return (
     <div className='flex flex-wrap gap-10 justify-center w-full'>
       {services.map((service, index) => (

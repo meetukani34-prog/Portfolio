@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
-import { projects } from "../constants";
+import { useProjects } from "../hooks/useFirestoreData";
 import { DeskAvatarCanvas } from "./canvas";
 
 const AccordionItem = ({ project, isOpen, onClick }) => {
@@ -75,6 +75,7 @@ const AccordionItem = ({ project, isOpen, onClick }) => {
 };
 
 const Works = () => {
+  const { data: projects } = useProjects();
   const [openIndex, setOpenIndex] = useState(0); // First item open by default
 
   return (

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styles } from "../styles";
-import { navLinks } from "../constants";
+import { navLinks as defaultNavLinks } from "../constants";
 import { menu, close } from "../assets";
 import { motion } from "framer-motion";
+import { useNavLinks, useSocialLinks } from "../hooks/useFirestoreData";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { data: navLinks } = useNavLinks();
+  const { data: social } = useSocialLinks();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +54,7 @@ const Navbar = () => {
         {/* Center: Email */}
         <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
           <p className="text-secondary text-[14px] tracking-wider font-medium hover:text-white transition-colors cursor-pointer">
-          meet.ukani01@gmail.com
+          {social.email || "meet.ukani01@gmail.com"}
           </p>
         </div>
 

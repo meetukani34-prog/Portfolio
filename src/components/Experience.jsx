@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import "react-vertical-timeline-component/style.min.css";
 
 import { styles } from "../styles";
-import { experiences } from "../constants";
+import { useExperiences } from "../hooks/useFirestoreData";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
 
@@ -57,6 +57,8 @@ const ExperienceCard = ({ experience }) => {
 };
 
 const Experience = () => {
+  const { data: experiences } = useExperiences();
+
   return (
     <>
       <motion.div variants={textVariant()}>

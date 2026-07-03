@@ -2,8 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { FaRegFileAlt } from "react-icons/fa";
+import { useHeroData } from "../hooks/useFirestoreData";
 
 const Hero = () => {
+  const { data: hero } = useHeroData();
 
   return (
     <>
@@ -13,9 +15,9 @@ const Hero = () => {
 
         {/* Left Intro Text (Matching reference CSS) */}
         <div className="hidden sm:block absolute left-20 md:left-24 lg:left-32 top-1/2 transform -translate-y-1/2 pointer-events-auto mt-[-50px]">
-          <p className="text-[#a48afb] font-normal text-[18px] md:text-[22px] lg:text-[24px] tracking-wide mb-2">Hello! I'm</p>
+          <p className="text-[#a48afb] font-normal text-[18px] md:text-[22px] lg:text-[24px] tracking-wide mb-2">{hero.greeting || "Hello! I'm"}</p>
           <h1 className="font-bold text-white text-[32px] md:text-[40px] lg:text-[45px] leading-[1.1] tracking-[0.05em] uppercase drop-shadow-md whitespace-nowrap">
-            MEET UKANI
+            {hero.name || "MEET UKANI"}
           </h1>
         </div>
 
@@ -27,10 +29,10 @@ const Hero = () => {
               className="font-bold text-[32px] md:text-[45px] lg:text-[52px] leading-[0.9] tracking-[0.1em] uppercase"
               style={{ WebkitTextStroke: '1px #a48afb', color: 'transparent' }}
             >
-              AI ENGINEER
+              {hero.roleOutline || "AI ENGINEER"}
             </h1>
             <h1 className="font-bold text-white text-[24px] md:text-[30px] lg:text-[34px] leading-[0.9] tracking-[0.1em] uppercase drop-shadow-md -mt-1">
-              FULL-STACK DEVELOPER
+              {hero.roleSolid || "FULL-STACK DEVELOPER"}
             </h1>
           </div>
         </div>
@@ -50,10 +52,10 @@ const Hero = () => {
 
       {/* Mobile Text (Shows only on small screens) */}
       <div className="sm:hidden absolute top-32 left-0 w-full px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
-        <p className="text-[#dfd9ff] font-medium text-[16px]">Hello! I'm MEET UKANI</p>
+        <p className="text-[#dfd9ff] font-medium text-[16px]">{hero.mobileGreeting || "Hello! I'm MEET UKANI"}</p>
         <h1 className="font-black text-white text-[28px] leading-tight mt-2 drop-shadow-md">
-          AI ENGINEER | <br />
-          FULL-STACK DEVELOPER
+          {hero.roleOutline || "AI ENGINEER"} | <br />
+          {hero.roleSolid || "FULL-STACK DEVELOPER"}
         </h1>
       </div>
 
