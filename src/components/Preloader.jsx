@@ -16,6 +16,16 @@ const Preloader = () => {
     }
   }, [progress, step]);
 
+  // Fallback: If loading takes longer than 3 seconds, force transition
+  useEffect(() => {
+    if (step === 0) {
+      const maxTimer = setTimeout(() => {
+        setStep(1);
+      }, 3000);
+      return () => clearTimeout(maxTimer);
+    }
+  }, [step]);
+
   useEffect(() => {
     // When in Welcome phase, wait a bit then disappear entirely
     if (step === 1) {
@@ -31,10 +41,10 @@ const Preloader = () => {
       {step < 2 && (
         <motion.div
           key="preloader-bg"
-          exit={{ 
-            y: "-100vh", 
-            borderBottomLeftRadius: "100%", 
-            borderBottomRightRadius: "100%" 
+          exit={{
+            y: "-100vh",
+            borderBottomLeftRadius: "100%",
+            borderBottomRightRadius: "100%"
           }}
           transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#090325] overflow-hidden"
@@ -64,7 +74,7 @@ const Preloader = () => {
                 </div>
                 {/* Background Watermark Text */}
                 <div className="absolute inset-0 flex items-center pointer-events-none select-none overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
                     className="flex whitespace-nowrap"
@@ -133,10 +143,10 @@ const Preloader = () => {
                       transition={{ duration: 0.7, delay: 0.4, ease: [0.76, 0, 0.24, 1] }}
                       className="text-4xl md:text-7xl font-black tracking-[0.1em] uppercase text-center animated-gradient-text pb-2"
                     >
-                      MEET UKANI
+                      UKANI Meet Manishbhai
                     </motion.h2>
                   </div>
-                  
+
                   {/* Subtitle Fading Up */}
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
