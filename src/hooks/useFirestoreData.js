@@ -30,12 +30,7 @@ export function useCollection(collectionName, fallbackData = []) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let q;
-    try {
-      q = query(collection(db, collectionName), orderBy("order", "asc"));
-    } catch {
-      q = collection(db, collectionName);
-    }
+    const q = collection(db, collectionName);
 
     const unsubscribe = onSnapshot(
       q,
@@ -43,10 +38,14 @@ export function useCollection(collectionName, fallbackData = []) {
         if (snapshot.empty) {
           setData(fallbackData);
         } else {
-          const items = snapshot.docs.map((d) => ({
+          let items = snapshot.docs.map((d) => ({
             id: d.id,
             ...d.data(),
           }));
+          
+          // Sort items locally by 'order' to avoid Firestore index errors
+          items.sort((a, b) => (a.order || 0) - (b.order || 0));
+          
           setData(items);
         }
         setLoading(false);
